@@ -40,16 +40,13 @@ module.exports.registerUser = function (userData) {
 
             let newUser = new User(userData);
 
-            newUser.save((err) => {
-                if (err) {
-                    if (err.code == 11000) {
-                        reject("User Name already taken");
-                    } else {
-                        reject("There was an error creating the user: " + err);
-                    }
-
+            newUser.save().then(() => {
+                resolve("User " + userData.userName + " successfully registered");
+            }).catch(err => {
+                if (err.code == 11000) {
+                    reject("User Name already taken");
                 } else {
-                    resolve("User " + userData.userName + " successfully registered");
+                    reject("There was an error creating the user: " + err);
                 }
             });
         }
