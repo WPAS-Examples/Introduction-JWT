@@ -10,8 +10,8 @@ const app = express();
 const HTTP_PORT = process.env.PORT || 8080;
 
 // JSON Web Token Setup
-var ExtractJwt = passportJWT.ExtractJwt;
-var JwtStrategy = passportJWT.Strategy;
+let ExtractJwt = passportJWT.ExtractJwt;
+let JwtStrategy = passportJWT.Strategy;
 
 // Configure its options
 let jwtOptions = {
@@ -25,7 +25,7 @@ let jwtOptions = {
 // using the following online tool:
 // https://lastpass.com/generatepassword.php
 
-var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
+let strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
     console.log('payload received', jwt_payload);
 
     if (jwt_payload) {
@@ -70,14 +70,14 @@ app.post("/api/login", (req, res) => {
     userService.checkUser(req.body)
         .then((user) => {
 
-            var payload = { 
+            let payload = { 
                 _id: user._id,
                 userName: user.userName,
                 fullName: user.fullName,
                 role: user.role
             };
             
-            var token = jwt.sign(payload, jwtOptions.secretOrKey);
+            let token = jwt.sign(payload, jwtOptions.secretOrKey);
 
             res.json({ "message": "login successful", "token": token });
         }).catch((msg) => {
