@@ -14,16 +14,16 @@ var ExtractJwt = passportJWT.ExtractJwt;
 var JwtStrategy = passportJWT.Strategy;
 
 // Configure its options
-var jwtOptions = {};
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
+let jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
+  secretOrKey: '&0y7$noP#5rt99&GB%Pz7j2b1vkzaB0RKs%^N^0zOP89NT04mPuaM!&G8cbNZOtH',
+};
 
-// IMPORTANT - this secret should be a long, unguessable string 
+// IMPORTANT - this secret should be a long, unguessable string
 // (ideally stored in a "protected storage" area on the web server).
 // We suggest that you generate a random 50-character string
 // using the following online tool:
 // https://lastpass.com/generatepassword.php
-
-jwtOptions.secretOrKey = '&0y7$noP#5rt99&GB%Pz7j2b1vkzaB0RKs%^N^0zOP89NT04mPuaM!&G8cbNZOtH';
 
 var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
     console.log('payload received', jwt_payload);
